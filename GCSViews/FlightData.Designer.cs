@@ -106,6 +106,8 @@
             this.BUT_abort_script = new MissionPlanner.Controls.MyButton();
             this.labelScriptStatus = new System.Windows.Forms.Label();
             this.BUT_select_script = new MissionPlanner.Controls.MyButton();
+            this.tabPagemessages = new System.Windows.Forms.TabPage();
+            this.txt_messagebox = new System.Windows.Forms.TextBox();
             this.tableMap = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.zg1 = new ZedGraph.ZedGraphControl();
@@ -132,8 +134,6 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPagemessages = new System.Windows.Forms.TabPage();
-            this.txt_messagebox = new System.Windows.Forms.TextBox();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
@@ -161,6 +161,7 @@
             this.panel2.SuspendLayout();
             this.tablogbrowse.SuspendLayout();
             this.tabScripts.SuspendLayout();
+            this.tabPagemessages.SuspendLayout();
             this.tableMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -171,7 +172,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
-            this.tabPagemessages.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripMap
@@ -232,6 +232,7 @@
             // MainH.Panel1
             // 
             this.MainH.Panel1.Controls.Add(this.SubMainLeft);
+            this.MainH.Panel1Collapsed = true;
             // 
             // MainH.Panel2
             // 
@@ -1443,6 +1444,18 @@
             this.BUT_select_script.UseVisualStyleBackColor = true;
             this.BUT_select_script.Click += new System.EventHandler(this.BUT_select_script_Click);
             // 
+            // tabPagemessages
+            // 
+            this.tabPagemessages.Controls.Add(this.txt_messagebox);
+            resources.ApplyResources(this.tabPagemessages, "tabPagemessages");
+            this.tabPagemessages.Name = "tabPagemessages";
+            this.tabPagemessages.UseVisualStyleBackColor = true;
+            // 
+            // txt_messagebox
+            // 
+            resources.ApplyResources(this.txt_messagebox, "txt_messagebox");
+            this.txt_messagebox.Name = "txt_messagebox";
+            // 
             // tableMap
             // 
             resources.ApplyResources(this.tableMap, "tableMap");
@@ -1693,18 +1706,6 @@
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // tabPagemessages
-            // 
-            this.tabPagemessages.Controls.Add(this.txt_messagebox);
-            resources.ApplyResources(this.tabPagemessages, "tabPagemessages");
-            this.tabPagemessages.Name = "tabPagemessages";
-            this.tabPagemessages.UseVisualStyleBackColor = true;
-            // 
-            // txt_messagebox
-            // 
-            resources.ApplyResources(this.txt_messagebox, "txt_messagebox");
-            this.txt_messagebox.Name = "txt_messagebox";
-            // 
             // Messagetabtimer
             // 
             this.Messagetabtimer.Interval = 200;
@@ -1750,6 +1751,8 @@
             this.tablogbrowse.ResumeLayout(false);
             this.tabScripts.ResumeLayout(false);
             this.tabScripts.PerformLayout();
+            this.tabPagemessages.ResumeLayout(false);
+            this.tabPagemessages.PerformLayout();
             this.tableMap.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -1762,8 +1765,6 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
-            this.tabPagemessages.ResumeLayout(false);
-            this.tabPagemessages.PerformLayout();
             this.ResumeLayout(false);
 
         }
