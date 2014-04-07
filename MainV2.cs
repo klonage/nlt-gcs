@@ -546,8 +546,8 @@ namespace MissionPlanner
                 //    MainV2.config["fixparams"] = 1;
             }
 
-
-
+            AutoHideMenu(true);
+            config["menu_autohide"] = true;
         }
 
         void POIs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -2286,7 +2286,7 @@ namespace MissionPlanner
                 MainMenu.MouseLeave += MainMenu_MouseLeave;
                 panel1.MouseLeave += MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave += MainMenu_MouseLeave;
-                menu.Visible = true;
+                menu.Visible = false;
                 menu.SendToBack();
                 this.ResumeLayout();
             }
