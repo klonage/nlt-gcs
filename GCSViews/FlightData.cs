@@ -25,6 +25,7 @@ using log4net;
 using System.Reflection;
 using MissionPlanner.Log;
 using GMap.NET.MapProviders;
+using Label = System.Windows.Forms.Label;
 
 // written by michael oborne
 namespace MissionPlanner.GCSViews
@@ -279,8 +280,142 @@ namespace MissionPlanner.GCSViews
             catch { }
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
+
+            #region tiles
+            var tileInfos = new TileInfo[]
+            {
+                new TileButton("FLIGHT\nINFO", 0, 0, Color.FromArgb(255, 255, 51, 0)), 
+                new TileData("GROUND SPEED", 0, 1, "km/h"), 
+                new TileData("ALTITUDE", 0, 2, "m"),
+                new TileData("TIME IN THE AIR", 0, 3),
+                new TileData("BATTERY REMAINING", 0, 4, "%"),
+                new TileData("RADIO SIGNAL", 0, 5, "%"),
+                new TileButton("DISCONNECT",  0, 6), 
+                new TileButton("DISARM", 0, 7),
+                new TileButton("FLIGHT\nPLANNING", 1, 0),
+                new TileData("AIR SPEED", 1, 1, "km/h"), 
+                new TileData("DISTANCE TO HOME", 1, 2, "km"),
+                new TileData("BATTERY VOLTAGE", 1, 3, "V"),
+                new TileData("CURRENT", 1, 4, "A"),
+                new TileData("GPS SIGNAL", 1, 5, "%"),
+                new TileButton("AUTO",  1, 6, Color.FromArgb(255, 255, 51, 0)), 
+                new TileButton("LAND", 1, 7),
+                new TileButton("RESTART", 2, 6),
+                new TileButton("RETURN", 2, 7),
+            };
+
+            foreach (var tile in tileInfos)
+            {
+                //TODO: transparent
+                var panel = new Panel
+                {
+                    Size = new Size(158, 64),
+                    Location = new Point(tile.Column*160, tile.Row*66),
+                    BackColor = Color.FromArgb(220, 0, 0, 0),
+                    Parent = splitContainer1.Panel2
+                };
+
+                panel.Controls.Add(tile.Label);
+
+                splitContainer1.Panel2.Controls.Add(panel);   
+                panel.BringToFront();
+            }
+
+            #endregion tiles
         }
-   
+
+
+        abstract class TileInfo
+        {
+            protected readonly string text;
+
+            public int Row { get; private set; }
+            public int Column { get; private set; }
+
+            protected TileInfo(string text, int row, int column)
+            {
+                this.text = text;
+                Row = row;
+                Column = column;
+            }
+
+            public abstract Control Label { get; }
+        }
+
+        class TileData : TileInfo
+        {
+            private readonly string unit;
+            public TileData(string text, int row, int column, string unit = "") : base(text, row, column)
+            {
+                this.unit = unit;
+            }
+
+            public override Control Label
+            {
+                get
+                {
+                    var panel = new Panel();
+                    var headLabel = new Label()
+                    {
+                        Text = text,
+                        ForeColor = Color.FromArgb(255, 41, 171, 226),
+                        Font = new Font("Century Gothic", 10, FontStyle.Italic),
+                        Top=10,
+                        Left=10
+                    };
+                    var unitLabel = new Label()
+                    {
+                        Text = unit,
+                        ForeColor = Color.White,
+                        Font = new Font("Century Gothic", 12),
+                        TextAlign = ContentAlignment.BottomRight,
+                    };
+                    unitLabel.Top = 64 - unitLabel.Height - 12;
+                    unitLabel.Left = 158 - unitLabel.Width - 10;
+
+                    var valueLabel = new Label()
+                    {
+                        ForeColor = Color.White,
+                        Font = new Font("Century Gothic", 18),
+                        Left = 10,
+                        Text = "0"
+                    };
+                    valueLabel.Top = 64 - valueLabel.Height - 12;
+                    panel.Controls.Add(unitLabel);
+                    panel.Controls.Add(valueLabel);
+                    panel.Controls.Add(headLabel);
+                    panel.Dock = DockStyle.Fill;
+                    return panel;
+                }
+            }
+        }
+
+        class TileButton : TileInfo
+        {
+            private readonly Color color;
+
+            public TileButton(string text, int row, int column, Color? color = null) : base(text, row, column)
+            {
+                this.color = color == null ? Color.White : color.GetValueOrDefault();
+            }
+
+            public override Control Label
+            {
+                get
+                {
+                    return new Label()
+                    {
+                        Text = text,
+                        ForeColor = color,
+                        AutoSize = false,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Dock = DockStyle.Fill,
+                        Font = new Font("Century Gothic", 14)
+                    };
+                }
+            }
+        }
+
         void tabStatus_Resize(object sender, EventArgs e)
         {
             // localise it
