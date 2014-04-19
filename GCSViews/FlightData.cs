@@ -281,7 +281,7 @@ namespace MissionPlanner.GCSViews
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
 
-            #region tiles
+             #region tiles
             var tileInfos = new TileInfo[]
             {
                 new TileButton("FLIGHT\nINFO", 0, 0, Color.FromArgb(255, 255, 51, 0)), 
@@ -302,6 +302,7 @@ namespace MissionPlanner.GCSViews
                 new TileButton("LAND", 1, 7),
                 new TileButton("RESTART", 2, 6),
                 new TileButton("RETURN", 2, 7),
+                new TileData("WIND SPED", 9, 0, "m/s"), 
             };
 
             foreach (var tile in tileInfos)
@@ -314,6 +315,7 @@ namespace MissionPlanner.GCSViews
                     BackColor = Color.FromArgb(220, 0, 0, 0),
                     Parent = splitContainer1.Panel2
                 };
+
 
                 panel.Controls.Add(tile.Label);
 
@@ -394,16 +396,20 @@ namespace MissionPlanner.GCSViews
         {
             private readonly Color color;
 
-            public TileButton(string text, int row, int column, Color? color = null) : base(text, row, column)
+            public TileButton(string text, int row, int column, EventHandler handler, Color? color = null) 
+                : base(text, row, column)
             {
                 this.color = color == null ? Color.White : color.GetValueOrDefault();
+                ClickMethod += handler;
             }
+
+            public EventHandler ClickMethod;
 
             public override Control Label
             {
                 get
                 {
-                    return new Label()
+                    var label = new Label
                     {
                         Text = text,
                         ForeColor = color,
@@ -412,6 +418,8 @@ namespace MissionPlanner.GCSViews
                         Dock = DockStyle.Fill,
                         Font = new Font("Century Gothic", 14)
                     };
+                    label.Click += ClickMethod;
+                    return label;
                 }
             }
         }
