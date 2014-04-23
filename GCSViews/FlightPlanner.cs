@@ -106,6 +106,7 @@ namespace MissionPlanner.GCSViews
             }
 
             setfromMap(lat, lng, alt);
+            
         }
         /// <summary>
         /// Actualy Sets the values into the datagrid and verifys height if turned on
@@ -423,6 +424,8 @@ namespace MissionPlanner.GCSViews
 
             Up.Image = global::MissionPlanner.Properties.Resources.up;
             Down.Image = global::MissionPlanner.Properties.Resources.down;
+
+            Tiles.SetTiles(panelBASE, false);
         }
 
         void updateCMDParams()
@@ -599,6 +602,7 @@ namespace MissionPlanner.GCSViews
             panelWaypoints.Expand = false;
 
             timer1.Start();
+            addPolygonPointToolStripMenuItem_Click(null, null);
         }
 
         void parser_ElementAdded(object sender, SharpKml.Base.ElementEventArgs e)
