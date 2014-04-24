@@ -19,7 +19,7 @@ namespace MissionPlanner.GCSViews
                 new TileData("TIME IN THE AIR", 0, 3),
                 new TileData("BATTERY REMAINING", 0, 4, "%"),
                 new TileData("RADIO SIGNAL", 0, 5, "%"),
-                new TileButton("DISCONNECT", 0, 6),
+                new TileButton("CONNECTION", 0, 6, (sender, args) => MainV2.instance.MenuConnect_Click(null, null)),
                 new TileButton("DISARM", 0, 7),
                 new TileButton("FLIGHT\nPLANNING", 1, 0, (sender, e) => MainV2.View.ShowScreen("FlightPlanner")),
                 new TileData("AIR SPEED", 1, 1, "km/h"),
@@ -28,7 +28,7 @@ namespace MissionPlanner.GCSViews
                 new TileData("CURRENT", 1, 4, "A"),
                 new TileData("GPS SIGNAL", 1, 5, "%"),
                 new TileButton("AUTO", 1, 6, null, Color.FromArgb(255, 255, 51, 0)),
-                new TileButton("LAND", 1, 7),
+                new TileButton("LAND", 1, 7, (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)),
                 new TileButton("RESTART", 2, 6),
                 new TileButton("RETURN", 2, 7),
                 new TileData("WIND SPED", 9, 0, "m/s"),
@@ -39,49 +39,37 @@ namespace MissionPlanner.GCSViews
             {
                 new TileButton("FLIGHT\nINFO", 0, 0, (sender, e) => MainV2.View.ShowScreen("FlightData")),
                 new TileButton("POLYGON\nMODE", 0, 1),
-                new TileButton("ADD START\nPOINT", 0, 2),
-                new TileButton("CLEAR", 0, 3), 
+                new TileButton("ADD START\nPOINT", 0, 2, (sender, args) => FlightPlanner.instance.takeoffToolStripMenuItem_Click(null, null)),
+                new TileButton("CLEAR", 0, 3, (sender, args) =>
+                {
+                    FlightPlanner.instance.clearMissionToolStripMenuItem_Click(null, null);
+                    FlightPlanner.instance.clearPolygonToolStripMenuItem_Click(null, null);
+                }), 
                 new TileData("DISTANCE", 0, 4, "km"),
                 new TileData("RADIO SIGNAL", 0, 5, "km2"),
-                new TileButton("DISCONNECT", 0, 6),
+                new TileButton("CONNECTION", 0, 6, (sender, args) => MainV2.instance.MenuConnect_Click(null, null)),
                 new TileButton("DISARM", 0, 7),
                 new TileButton("FLIGHT\nPLANNING", 1, 0, (sender, e) => MainV2.View.ShowScreen("FlightPlanner"),
                     Color.FromArgb(255, 255, 51, 0)),
                     
                 new TileButton("WAYPOINT\nMODE", 1, 1, (sender, e) =>
-                {/*
-                    var Host = new Plugin.PluginHost();if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
-            {
-                Form gridui = new MissionPlanner.GridUI(this);
-                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
-                gridui.ShowDialog();
-            }
-            else
-            {
-                CustomMessageBox.Show("Please define a polygon.", "Error");
-            }*/
-                    var Host = new Plugin.PluginHost();
-                ToolStripItemCollection col = Host.FPMenuMap.Items;
-            int index = col.Count;
-            foreach (ToolStripItem item in col)
-            {
-                if (item.Text.Equals("Auto WP"))
                 {
-                    var toolStripMenuItem = item as ToolStripMenuItem;
-                    if (toolStripMenuItem == null) continue;
-                    foreach (var toolStripItem in toolStripMenuItem.DropDownItems.Cast<object>().OfType<ToolStripItem>().Where(toolStripItem => toolStripItem.Text.Equals("Survey (Grid)")))
+                    var Host = new Plugin.PluginHost();
+                    ToolStripItemCollection col = Host.FPMenuMap.Items;
+                    int index = col.Count;
+                    foreach (var toolStripItem in col.Cast<ToolStripItem>().Where(item => item.Text.Equals("Auto WP")).OfType<ToolStripMenuItem>().SelectMany(toolStripMenuItem => toolStripMenuItem.DropDownItems.Cast<object>()
+                        .OfType<ToolStripItem>()
+                        .Where(toolStripItem => toolStripItem.Text.Equals("Survey (Grid)"))))
                     {
                         toolStripItem.PerformClick();
                     }
-                }
-            }
                 }),
-                new TileButton("ADD LANDING POINT", 1, 2),
+                new TileButton("ADD LANDING POINT", 1, 2, (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)),
                 new TileData("OBSERVATION HEAD", 1, 3),
                 new TileData("ANGLE", 1, 4, "degrees"),
                 new TileData("ALTITUDE", 1, 5, "m"),
                 new TileButton("AUTO", 1, 6, null, Color.FromArgb(255, 255, 51, 0)),
-                new TileButton("LAND", 1, 7),
+                new TileButton("LAND", 1, 7, (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)),
                 new TileButton("RESTART", 2, 6),
                 new TileButton("RETURN", 2, 7),
                 new TileData("WIND SPED", 9, 0, "m/s"),

@@ -2853,7 +2853,8 @@ namespace MissionPlanner.GCSViews
 
         }
 
-        private void clearPolygonToolStripMenuItem_Click(object sender, EventArgs e)
+        // todo hacking!
+        public void clearPolygonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             polygongridmode = false;
             if (drawnpolygon == null)
@@ -2865,7 +2866,8 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void clearMissionToolStripMenuItem_Click(object sender, EventArgs e)
+        // todo haha ! hacking !
+        public void clearMissionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             quickadd = true;
 
@@ -4572,7 +4574,8 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void landToolStripMenuItem_Click(object sender, EventArgs e)
+        // todo hacking!
+        public void landToolStripMenuItem_Click(object sender, EventArgs e)
         {
             selectedrow = Commands.Rows.Add();
 
@@ -4624,7 +4627,8 @@ namespace MissionPlanner.GCSViews
             writeKML();
         }
 
-        private void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
+        // todo hacking
+        public void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // altitude
             string alt = "10";

@@ -695,7 +695,8 @@ namespace MissionPlanner
             MyView.ShowScreen("Terminal");
         }
 
-        private void MenuConnect_Click(object sender, EventArgs e)
+        // todo hacking!
+        public void MenuConnect_Click(object sender, EventArgs e)
         {
             comPort.giveComport = false;
 
