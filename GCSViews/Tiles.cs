@@ -128,6 +128,9 @@ namespace MissionPlanner.GCSViews
             get
             {
                 var panel = new Panel();
+                panel.Size=new Size(158, 64);
+               // panel.Dock = DockStyle.Fill;
+                ;
                 var headLabel = new Label()
                 {
                     Text = text,
@@ -151,11 +154,12 @@ namespace MissionPlanner.GCSViews
                     ForeColor = Color.White,
                     Font = new Font("Century Gothic", 18),
                     Left = 10,
-                    Text = "0"
+                    Text = "0",
+                    Height = 25,
                 };
                 valueLabel.Top = 64 - valueLabel.Height - 12;
                 panel.Controls.Add(unitLabel);
-                panel.Controls.Add(valueLabel);
+                panel.Controls.Add(valueLabel);valueLabel.BringToFront();
                 panel.Controls.Add(headLabel);
                 panel.Dock = DockStyle.Fill;
                 return panel;
