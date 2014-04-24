@@ -313,7 +313,8 @@ namespace MissionPlanner.GCSViews
             instance = this;
 
             InitializeComponent();
-
+            panelWaypoints.Visible = false;
+            panelAction.Visible = false;
             // config map             
             MainMap.CacheLocation = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "gmapcache" + Path.DirectorySeparatorChar;
             MainMap.MapProvider = GoogleSatelliteMapProvider.Instance;
