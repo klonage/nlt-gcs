@@ -2814,7 +2814,7 @@ print 'Roll complete'
             this.Refresh();
         }
 
-        private void BUT_ARM_Click(object sender, EventArgs e)
+        internal void BUT_ARM_Click(object sender, EventArgs e)
         {
             if (!MainV2.comPort.BaseStream.IsOpen)
                 return;
