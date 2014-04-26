@@ -59,12 +59,27 @@ namespace MissionPlanner.GCSViews
             var altBtnUp = new TileButton("+25", 3, 4);
             var altBtnDown = new TileButton("-25", 4, 4);
             var altBtnOk = new TileButton("OK", 5, 4);
-            // todo copy paste code ;/
+            
+            const string polygonmodestring = "POLYGON\nMODE";
             var tilesFlightPlanning = new List<TileInfo>(new TileInfo[]
             {
                 obsHeadBtn,/*, defaultHead, cam1Head, cam2Head, angleBtnUp, angleBtnDown, angleBtnOk, altBtnUp, altBtnDown, altBtnOk,*/
                 new TileButton("FLIGHT\nINFO", 0, 0, (sender, e) => MainV2.View.ShowScreen("FlightData")),
-                new TileButton("POLYGON\nMODE", 0, 1),
+                new TileButton(polygonmodestring, 0, 1, (sender, e) =>
+                {
+                    var s = sender as Label;
+                    // todo YEAH HACKING EVERYWHERE!
+                    if (s.Text == polygonmodestring)
+                    {
+                        s.Text = "WAYPOINT\nMODE";
+                        FlightPlanner.instance.PolygonGridMode = false;
+                    }
+                    else
+                    {
+                        s.Text = polygonmodestring;
+                        FlightPlanner.instance.PolygonGridMode = true;
+                    }
+                }),
                 new TileButton("ADD START\nPOINT", 0, 2, (sender, args) => FlightPlanner.instance.takeoffToolStripMenuItem_Click(null, null)),
                 new TileButton("CLEAR", 0, 3, (sender, args) =>
                 {
@@ -76,7 +91,7 @@ namespace MissionPlanner.GCSViews
                 new TileButton("FLIGHT\nPLANNING", 1, 0, (sender, e) => MainV2.View.ShowScreen("FlightPlanner"),
                     Color.FromArgb(255, 255, 51, 0)),
                     
-                new TileButton("WAYPOINT\nMODE", 1, 1, (sender, e) =>
+                new TileButton("PATH\nGENERATION", 1, 1, (sender, e) =>
                 {
                     var Host = new Plugin.PluginHost();
                     ToolStripItemCollection col = Host.FPMenuMap.Items;
@@ -97,11 +112,35 @@ namespace MissionPlanner.GCSViews
             var tilesArray = (isFlightMode) ? tilesFlightMode : tilesFlightPlanning;
 
             tilesArray.Add(new TileButton("CONNECTION", 0, 6, (sender, args) => MainV2.instance.MenuConnect_Click(null, null)));
-            tilesArray.Add(new TileButton("AUTO", 1, 6, null, Color.FromArgb(255, 255, 51, 0)));
-            tilesArray.Add(new TileButton("RESTART", 2, 6));
-            tilesArray.Add(new TileButton("RETURN", 2, 7));
-            tilesArray.Add(new TileButton("LAND", 1, 7,
-                (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)));     
+            tilesArray.Add(new TileButton("AUTO", 1, 6, (sender, e) =>
+            {
+                try
+                {
+                    MainV2.comPort.setMode("Auto");
+                }
+                catch
+                {
+                    CustomMessageBox.Show("The Command failed to execute", "Error");
+                }
+            }, Color.FromArgb(255, 255, 51, 0)));
+            tilesArray.Add(new TileButton("RESTART", 2, 6, (sender, args) =>
+            {
+                try
+                {
+                    MainV2.comPort.setWPCurrent(0);
+                }
+                catch { CustomMessageBox.Show("The command failed to execute", "Error"); }
+            }));
+            tilesArray.Add(new TileButton("RETURN", 2, 7, (sender, args) =>
+            {
+                try
+                {
+                    MainV2.comPort.setMode("RTL");
+                }
+                catch { CustomMessageBox.Show("The Command failed to execute", "Error"); }
+            }));
+            tilesArray.Add(new TileButton("LAND", 1, 7)); // todo not implemented
+               // (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)));     
             tilesArray.Add(new TileButton("ARM/DISARM", 0, 7, (sender, args) => FlightData.instance.BUT_ARM_Click(sender, args)));
             tilesArray.Add(new TileData("WIND SPED", 9, 0, "m/s"));
 

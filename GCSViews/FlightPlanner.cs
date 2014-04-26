@@ -56,7 +56,11 @@ namespace MissionPlanner.GCSViews
 
         private Dictionary<string, string[]> cmdParamNames = new Dictionary<string, string[]>();
 
-
+        public bool PolygonGridMode
+        {
+            get { return polygongridmode; }
+            set { polygongridmode = value; }
+        }
 
         /// <summary>
         /// used to adjust existing point in the datagrid including "Home"
@@ -603,7 +607,7 @@ namespace MissionPlanner.GCSViews
             panelWaypoints.Expand = false;
 
             timer1.Start();
-            addPolygonPointToolStripMenuItem_Click(null, null);
+            polygongridmode = true;
         }
 
         void parser_ElementAdded(object sender, SharpKml.Base.ElementEventArgs e)
@@ -2826,7 +2830,7 @@ namespace MissionPlanner.GCSViews
         {
             if (polygongridmode == false)
             {
-                CustomMessageBox.Show("You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+               // CustomMessageBox.Show("You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
             }
 
             polygongridmode = true;
@@ -2857,7 +2861,7 @@ namespace MissionPlanner.GCSViews
         // todo hacking!
         public void clearPolygonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            polygongridmode = false;
+            // todo why? polygongridmode = false;
             if (drawnpolygon == null)
                 return;
             drawnpolygon.Points.Clear();
