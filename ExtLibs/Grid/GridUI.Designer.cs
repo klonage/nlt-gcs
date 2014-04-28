@@ -99,6 +99,8 @@
             this.tabCamera = new System.Windows.Forms.TabPage();
             this.map = new MissionPlanner.Controls.myGMAP();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.lbl_distbetweenlines = new System.Windows.Forms.Label();
@@ -111,14 +113,10 @@
             this.label34 = new System.Windows.Forms.Label();
             this.lbl_grndres = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.lbl_spacing = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_area = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_spacing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_overshoot2)).BeginInit();
@@ -793,8 +791,6 @@
             this.groupBox5.Controls.Add(this.label34);
             this.groupBox5.Controls.Add(this.lbl_grndres);
             this.groupBox5.Controls.Add(this.label29);
-            this.groupBox5.Controls.Add(this.lbl_spacing);
-            this.groupBox5.Controls.Add(this.label27);
             this.groupBox5.Controls.Add(this.lbl_distance);
             this.groupBox5.Controls.Add(this.lbl_area);
             this.groupBox5.Controls.Add(this.label23);
@@ -802,6 +798,16 @@
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
             // 
             // label28
             // 
@@ -863,16 +869,6 @@
             resources.ApplyResources(this.label29, "label29");
             this.label29.Name = "label29";
             // 
-            // lbl_spacing
-            // 
-            resources.ApplyResources(this.lbl_spacing, "lbl_spacing");
-            this.lbl_spacing.Name = "lbl_spacing";
-            // 
-            // label27
-            // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = "label27";
-            // 
             // lbl_distance
             // 
             resources.ApplyResources(this.lbl_distance, "lbl_distance");
@@ -892,16 +888,6 @@
             // 
             resources.ApplyResources(this.label22, "label22");
             this.label22.Name = "label22";
-            // 
-            // label32
-            // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.Name = "label32";
-            // 
-            // label35
-            // 
-            resources.ApplyResources(this.label35, "label35");
-            this.label35.Name = "label35";
             // 
             // GridUI
             // 
@@ -1020,8 +1006,6 @@
         private System.Windows.Forms.NumericUpDown num_overlap;
         private System.Windows.Forms.NumericUpDown num_sidelap;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label lbl_spacing;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lbl_grndres;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckBox CHK_advanced;

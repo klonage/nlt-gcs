@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic; // Lists
+using System.Linq;
 using System.Text; // stringbuilder
 using System.Drawing; // pens etc
 using System.IO; // file io
@@ -282,6 +283,36 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
 
             Tiles.SetTiles(splitContainer1.Panel2, true);
+
+            BindLabels();
+        }
+
+        void BindLabels()
+        {
+            BindSingleLabel("ALTITUDE", "alt");
+            BindSingleLabel("GROUND_SPEED", "groundspeed");
+            BindSingleLabel("TIME_IN_THE_AIR", "timeInAir");
+            BindSingleLabel("BATTERY_REMAINING", "battery_remaining");
+            BindSingleLabel("AIR_SPEED", "airspeed");
+            BindSingleLabel("DISTANCE_TO_HOME", "DistToHome");
+            BindSingleLabel("BATTERY_VOLTAGE", "battery_voltage");
+            BindSingleLabel("CURRENT", "current");
+            BindSingleLabel("RADIO_SIGNAL", "linkqualitygcs");
+        }
+
+        void BindSingleLabel(string name, string binder)
+        {
+            foreach (Panel a in splitContainer1.Panel2.Controls.OfType<Panel>())
+            {
+                foreach (var label in a.Controls.OfType<Panel>().Select(c => c.Controls[0] as Label))
+                {
+                    if (label != null && label.Name == name)
+                        label.DataBindings.Add(new Binding("Text", bindingSource1,
+                            binder,
+                            true));
+                    break;
+                }
+            }
         }
 
         private object ShowScreen(string p)
@@ -1227,7 +1258,7 @@ namespace MissionPlanner.GCSViews
             });
         }
 
-        private void updateLogPlayPosition()
+        internal void updateLogPlayPosition()
         {
             this.BeginInvoke((MethodInvoker)delegate()
             {
@@ -1452,7 +1483,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void BUT_clear_track_Click(object sender, EventArgs e)
+        internal void BUT_clear_track_Click(object sender, EventArgs e)
         {
             if (route != null)
                 route.Points.Clear();
@@ -1675,7 +1706,7 @@ namespace MissionPlanner.GCSViews
             gMapControl1.Zoom = gMapControl1.Zoom + 0.01;
         }
 
-        private void BUT_loadtelem_Click(object sender, EventArgs e)
+        internal void BUT_loadtelem_Click(object sender, EventArgs e)
         {
             LBL_logfn.Text = "";
 

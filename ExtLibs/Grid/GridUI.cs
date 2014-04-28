@@ -264,7 +264,7 @@ namespace MissionPlanner
 
             lbl_distance.Text = wppoly.Distance.ToString("0.##") + " km";
 
-            lbl_spacing.Text = NUM_spacing.Value.ToString("#") + " m";
+            //lbl_spacing.Text = NUM_spacing.Value.ToString("#") + " m";
 
             lbl_grndres.Text = TXT_cmpixel.Text;
 
