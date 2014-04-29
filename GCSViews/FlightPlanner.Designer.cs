@@ -1274,7 +1274,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Label1;
-        private System.Windows.Forms.TextBox TXT_homealt;
+        internal System.Windows.Forms.TextBox TXT_homealt;
         private System.Windows.Forms.TextBox TXT_homelng;
         private System.Windows.Forms.TextBox TXT_homelat;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
@@ -1293,7 +1293,7 @@
         private System.Windows.Forms.CheckBox CHK_geheight;
         private Controls.MyButton BUT_Add;
         private System.Windows.Forms.TextBox TXT_WPRad;
-        private System.Windows.Forms.TextBox TXT_DefaultAlt;
+        internal System.Windows.Forms.TextBox TXT_DefaultAlt;
         private System.Windows.Forms.Label LBL_WPRad;
         private System.Windows.Forms.Label LBL_defalutalt;
         private System.Windows.Forms.TextBox TXT_loiterrad;

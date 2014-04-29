@@ -19,8 +19,8 @@ namespace MissionPlanner.GCSViews
             var angleBtnDown = new TileButton("-25", 3, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) - 25).ToString());
             TileButton angleBtnOk = null;
             angleBtnOk = new TileButton("OK", 4, 4, (sender, args) => angleBtnUp.Visible = angleBtnDown.Visible = angleBtnOk.Visible = false);
-            var altBtnUp = new TileButton("+25", 2, 5, (sender, args) => altInfo.Value = (Convert.ToInt32(altInfo.Value) + 25).ToString());
-            var altBtnDown = new TileButton("-25", 3, 5, (sender, args) => altInfo.Value = (Convert.ToInt32(altInfo.Value) - 25).ToString());
+            var altBtnUp = new TileButton("+25", 2, 5, (sender, args) => FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = (Convert.ToInt32(altInfo.Value) + 25).ToString());
+            var altBtnDown = new TileButton("-25", 3, 5, (sender, args) => FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = (Convert.ToInt32(altInfo.Value) - 25).ToString());
             TileButton altBtnOk = null;
             altBtnOk = new TileButton("OK", 4, 5, (sender, args) => altBtnDown.Visible = altBtnUp.Visible = altBtnOk.Visible = false);
 
@@ -29,6 +29,8 @@ namespace MissionPlanner.GCSViews
                 var x = !altBtnUp.Visible;
                 altBtnUp.Visible = altBtnDown.Visible = altBtnOk.Visible = x;
             });
+            if (!isFlightMode)
+                altInfo.Value = FlightPlanner.instance.TXT_DefaultAlt.Text = MainV2.config["TXT_DefaultAlt"].ToString();
 
             var hideList = new TileInfo[] {altBtnUp, altBtnDown, altBtnOk, angleBtnDown, angleBtnUp, angleBtnOk};
 
