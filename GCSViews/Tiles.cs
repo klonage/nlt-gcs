@@ -52,7 +52,6 @@ namespace MissionPlanner.GCSViews
                 new TileData("BATTERY VOLTAGE", 1, 3, "V"),
                 new TileData("CURRENT", 1, 4, "A"),
                 new TileData("GPS SIGNAL", 1, 5, "%"),
-                new TileButton("WRITE WAYPOINTS", 3, 7, (sender, args) => FlightPlanner.instance.BUT_write_Click(sender, args)), 
             });
 
 
@@ -111,6 +110,8 @@ namespace MissionPlanner.GCSViews
                 }),
                 new TileData("DISTANCE", 0, 4, "km"),
                 new TileData("RADIO SIGNAL", 0, 5, "km2"),
+                new TileButton("WRITE WAYPOINTS", 3, 7, (sender, args) => FlightPlanner.instance.BUT_write_Click(sender, args)), 
+            
                 new TileButton("FLIGHT\nPLANNING", 1, 0, (sender, e) => MainV2.View.ShowScreen("FlightPlanner"),
                     Color.FromArgb(255, 255, 51, 0)),
 
