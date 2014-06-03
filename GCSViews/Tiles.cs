@@ -29,10 +29,10 @@ namespace MissionPlanner.GCSViews
                 var x = !altBtnUp.Visible;
                 altBtnUp.Visible = altBtnDown.Visible = altBtnOk.Visible = x;
             });
-            if (!isFlightMode)
+            if (!isFlightMode && MainV2.config.ContainsKey("TXT_DefaultAlt"))
                 altInfo.Value = FlightPlanner.instance.TXT_DefaultAlt.Text = MainV2.config["TXT_DefaultAlt"].ToString();
 
-            var hideList = new TileInfo[] {altBtnUp, altBtnDown, altBtnOk, angleBtnDown, angleBtnUp, angleBtnOk};
+            var hideList = new TileInfo[] { altBtnUp, altBtnDown, altBtnOk, angleBtnDown, angleBtnUp, angleBtnOk };
 
 
             var tilesFlightMode = new List<TileInfo>(new TileInfo[]
@@ -78,7 +78,7 @@ namespace MissionPlanner.GCSViews
             cam1Head.ClickMethod += fnc;
             cam2Head.ClickMethod += fnc;
 
-           
+
 
             const string polygonmodestring = "POLYGON\nMODE";
             var tilesFlightPlanning = new List<TileInfo>(new TileInfo[]
@@ -194,7 +194,7 @@ namespace MissionPlanner.GCSViews
 
                     if (MainV2.comPort.logplaybackfile != null)
                         MainV2.comPort.logplaybackfile.BaseStream.Position =
-                            (long) (MainV2.comPort.logplaybackfile.BaseStream.Length*(40/100.0));
+                            (long)(MainV2.comPort.logplaybackfile.BaseStream.Length * (40 / 100.0));
 
                     FlightData.instance.updateLogPlayPosition();
                 }
@@ -213,7 +213,7 @@ namespace MissionPlanner.GCSViews
                 var panel = new Panel
                 {
                     Size = new Size(158, 64),
-                    Location = new Point(tile.Column*160, tile.Row*66),
+                    Location = new Point(tile.Column * 160, tile.Row * 66),
                     BackColor = Color.FromArgb(220, 0, 0, 0),
                     Parent = p
                 };
@@ -261,7 +261,7 @@ namespace MissionPlanner.GCSViews
         {
             this.unit = unit;
             ClickMethod = handler;
-            panel = new Panel {Size = new Size(158, 64)};
+            panel = new Panel { Size = new Size(158, 64) };
             // panel.Dock = DockStyle.Fill;
             ;
             var headLabel = new Label()
@@ -351,7 +351,8 @@ namespace MissionPlanner.GCSViews
         public bool Visible
         {
             set { if (label.Parent != null) label.Parent.Visible = value; }
-            get {
+            get
+            {
                 return label.Parent != null && label.Parent.Visible;
             }
         }
