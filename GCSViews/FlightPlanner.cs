@@ -1354,12 +1354,23 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
-                    home.id = (byte)MAVLink.MAV_CMD.WAYPOINT;
+                    home.id = (byte) MAVLink.MAV_CMD.WAYPOINT;
                     home.lat = (double.Parse(TXT_homelat.Text));
                     home.lng = (double.Parse(TXT_homelng.Text));
-                    home.alt = (float.Parse(TXT_homealt.Text) / MainV2.comPort.MAV.cs.multiplierdist); // use saved home
+                    home.alt = (float.Parse(TXT_homealt.Text)/MainV2.comPort.MAV.cs.multiplierdist); // use saved home
                 }
-                catch { throw new Exception("Your home location is invalid"); }
+                catch
+                {
+                    try
+                    {
+                        home.lat = (double.Parse(Commands.Rows[0].Cells[Lat.Index].Value.ToString()));
+                        home.lng = (double.Parse(Commands.Rows[0].Cells[Lon.Index].Value.ToString()));
+                    }
+                    catch
+                    {
+                        throw new Exception("Your home location is invalid");
+                    }
+                }
 
                 ((Controls.ProgressReporterDialogue)sender).UpdateProgressAndStatus(0, "Set Total WPs ");
 

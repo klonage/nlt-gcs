@@ -780,6 +780,7 @@ namespace MissionPlanner
             }
             else
             {
+                _connectionControl.CMB_serialport.Text = "COM";
                 switch (_connectionControl.CMB_serialport.Text)
                 {
                     case "TCP":
@@ -834,10 +835,12 @@ namespace MissionPlanner
                     }
 
                     // set port, then options
+                    _connectionControl.CMB_serialport.Text = "COM12";
                     comPort.BaseStream.PortName = _connectionControl.CMB_serialport.Text;
 
                     try
                     {
+                        _connectionControl.CMB_baudrate.Text = "57600";
                         comPort.BaseStream.BaudRate = int.Parse(_connectionControl.CMB_baudrate.Text);
                     }
                     catch (Exception exp) { log.Error(exp); }
