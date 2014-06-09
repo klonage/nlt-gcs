@@ -1547,7 +1547,7 @@ namespace MissionPlanner
                             }
                         }
                     }
-
+                    //MAVLink.MAV_CMD.do
                     // send a hb every seconds from gcs to ap
                     if (heatbeatSend.Second != DateTime.Now.Second)
                     {
