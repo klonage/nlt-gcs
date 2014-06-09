@@ -278,11 +278,13 @@ namespace MissionPlanner
                                       {
                                           StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen,
                                           Text = "Connecting Mavlink"
-                                      };
-
+                                          
+                                     };
+            frmProgressReporter.Opacity = 0;
             if (getparams)
             {
                 frmProgressReporter.DoWork += FrmProgressReporterDoWorkAndParams;
+                frmProgressReporter.Visible = false;
             }
             else
             {
@@ -290,9 +292,9 @@ namespace MissionPlanner
             }
             frmProgressReporter.UpdateProgressAndStatus(-1, "Mavlink Connecting...");
             ThemeManager.ApplyThemeTo(frmProgressReporter);
-
+            frmProgressReporter.Visible = false;
             frmProgressReporter.RunBackgroundOperationAsync();
-
+            frmProgressReporter.Visible = false;
             if (ParamListChanged != null)
             {
                 ParamListChanged(this, null);

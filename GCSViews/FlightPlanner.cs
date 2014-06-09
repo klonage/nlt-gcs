@@ -321,7 +321,7 @@ namespace MissionPlanner.GCSViews
             panelAction.Visible = false;
             // config map             
             MainMap.CacheLocation = Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "gmapcache" + Path.DirectorySeparatorChar;
-            MainMap.MapProvider = GoogleSatelliteMapProvider.Instance;
+            MainMap.MapProvider = GoogleHybridMapProvider.Instance;
 
             // map events
             MainMap.OnPositionChanged += new PositionChanged(MainMap_OnCurrentPositionChanged);
@@ -592,7 +592,7 @@ namespace MissionPlanner.GCSViews
             //setup drawnpolgon
             List<PointLatLng> polygonPoints2 = new List<PointLatLng>();
             drawnpolygon = new GMapPolygon(polygonPoints2, "drawnpoly");
-            drawnpolygon.Stroke = new Pen(Color.Red, 2);
+            drawnpolygon.Stroke = new Pen(Color.Orange, 2);
             drawnpolygon.Fill = Brushes.Transparent;
 
             updateCMDParams();
@@ -2527,7 +2527,7 @@ namespace MissionPlanner.GCSViews
                 wppolygon.Points.Clear();
                 wppolygon.Points.AddRange(polygonPoints);
 
-                wppolygon.Stroke = new Pen(Color.Yellow, 4);
+                wppolygon.Stroke = new Pen(Color.Magenta, 4);
                 wppolygon.Fill = Brushes.Transparent;
 
                 if (polygonsoverlay.Polygons.Count == 0)

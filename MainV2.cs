@@ -50,7 +50,7 @@ namespace MissionPlanner
             IntPtr NotificationFilter,
             Int32 Flags);
 
-            static public int SW_SHOWNORMAL = 1;
+            static public int SW_SHOWNORMAL = 0;
             static public int SW_HIDE = 0;
         }
 
@@ -657,42 +657,42 @@ namespace MissionPlanner
 
         public void MenuSetup_Click(object sender, EventArgs e)
         {
-            if (getConfig("password_protect") == "" || bool.Parse(getConfig("password_protect")) == false)
+            //if (getConfig("password_protect") == "" || bool.Parse(getConfig("password_protect")) == false)
             {
-                MyView.ShowScreen("HWConfig");
+             //   MyView.ShowScreen("HWConfig");
             }
-            else
+           // else
             {
-                if (Password.VerifyPassword())
+               // if (Password.VerifyPassword())
                 {
-                    MyView.ShowScreen("HWConfig");
+                    //MyView.ShowScreen("HWConfig");
                 }
             }
         }
 
         private void MenuSimulation_Click(object sender, EventArgs e)
         {
-            MyView.ShowScreen("Simulation");
+          //  MyView.ShowScreen("Simulation");
         }
 
         private void MenuTuning_Click(object sender, EventArgs e)
         {
-            if (getConfig("password_protect") == "" || bool.Parse(getConfig("password_protect")) == false)
+            //if (getConfig("password_protect") == "" || bool.Parse(getConfig("password_protect")) == false)
             {
-                MyView.ShowScreen("SWConfig");
+           //     MyView.ShowScreen("SWConfig");
             }
-            else
+           // else
             {
-                if (Password.VerifyPassword())
+           //     if (Password.VerifyPassword())
                 {
-                    MyView.ShowScreen("SWConfig");
+            //        MyView.ShowScreen("SWConfig");
                 }
             }
         }
 
         private void MenuTerminal_Click(object sender, EventArgs e)
         {
-            MyView.ShowScreen("Terminal");
+          //  MyView.ShowScreen("Terminal");
         }
 
         // todo hacking!
@@ -780,7 +780,7 @@ namespace MissionPlanner
             }
             else
             {
-                _connectionControl.CMB_serialport.Text = "COM";
+                _connectionControl.CMB_serialport.Text = "TCP";
                 switch (_connectionControl.CMB_serialport.Text)
                 {
                     case "TCP":
@@ -835,7 +835,7 @@ namespace MissionPlanner
                     }
 
                     // set port, then options
-                    _connectionControl.CMB_serialport.Text = "COM12";
+                    _connectionControl.CMB_serialport.Text = "com12";
                     comPort.BaseStream.PortName = _connectionControl.CMB_serialport.Text;
 
                     try

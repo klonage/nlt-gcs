@@ -37,7 +37,7 @@ namespace MissionPlanner.Comms
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             //System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            Port = "5760";
+            Port = "8000";
         }
 
         public void toggleDTR()
@@ -86,8 +86,8 @@ namespace MissionPlanner.Comms
 
             log.Info("TCP Open");
 
-            string dest = Port;
-            string host = "127.0.0.1";
+            string dest = "8000";
+            string host = "192.168.2.1";
 
             dest = OnSettings("TCP_port", dest);
 
@@ -95,13 +95,13 @@ namespace MissionPlanner.Comms
 
             //if (!MainV2.MONO)
             {
-                if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("remote host", "Enter host name/ip (ensure remote end is already started)", ref host))
+                //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("remote host", "Enter host name/ip (ensure remote end is already started)", ref host))
                 {
-                    throw new Exception("Canceled by request");
+                //    throw new Exception("Canceled by request");
                 }
-                if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("remote Port", "Enter remote port", ref dest))
+               // if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("remote Port", "Enter remote port", ref dest))
                 {
-                    throw new Exception("Canceled by request");
+               //     throw new Exception("Canceled by request");
                 }
             }
 
@@ -110,7 +110,7 @@ namespace MissionPlanner.Comms
             OnSettings("TCP_port", Port, true);
             OnSettings("TCP_host", host, true);
 
-            client = new TcpClient(host, int.Parse(Port));
+            client = new TcpClient(host, 8000);
 
             client.NoDelay = true;
             client.Client.NoDelay = true;
