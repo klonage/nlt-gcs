@@ -15,8 +15,8 @@ namespace MissionPlanner.GCSViews
         {
             TileData altInfo = null;
             TileData angleInfo = null;
-            var angleBtnUp = new TileButton("+25", 2, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) + 25).ToString());
-            var angleBtnDown = new TileButton("-25", 3, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) - 25).ToString());
+            var angleBtnUp = new TileButton("+5", 2, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) + 5).ToString());
+            var angleBtnDown = new TileButton("-5", 3, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) - 5).ToString());
             TileButton angleBtnOk = null;
             angleBtnOk = new TileButton("OK", 4, 4, (sender, args) => angleBtnUp.Visible = angleBtnDown.Visible = angleBtnOk.Visible = false);
             var altBtnUp = new TileButton("+25", 2, 5, (sender, args) => FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = (Convert.ToInt32(altInfo.Value) + 25).ToString());
@@ -42,7 +42,7 @@ namespace MissionPlanner.GCSViews
                     Color.FromArgb(255, 255, 51, 0)),
                 new TileData("GROUND SPEED", 0, 1, "km/h"),
                 new TileData("ALTITUDE", 0, 2, "m"),
-                new TileData("TIME IN THE AIR", 0, 3),
+                new TileData("TIME IN THE AIR", 0, 3,"min"),
                 new TileData("BATTERY REMAINING", 0, 4, "%"),
                 new TileData("RADIO SIGNAL", 0, 5, "%"),
                 new TileButton("DISARM", 0, 7),
@@ -51,7 +51,7 @@ namespace MissionPlanner.GCSViews
                 new TileData("DISTANCE TO HOME", 1, 2, "km"),
                 new TileData("BATTERY VOLTAGE", 1, 3, "V"),
                 new TileData("CURRENT", 1, 4, "A"),
-                new TileData("GPS SIGNAL", 1, 5, "%"),
+                new TileData("GPS SIGNAL", 1, 5, "Sat."),
             });
 
 
@@ -60,12 +60,12 @@ namespace MissionPlanner.GCSViews
             var cam1Head = new TileButton("CAMERA 1", 3, 3);
 
             var cam2Head = new TileButton("CAMERA 2", 4, 3);
-            var obsHeadBtn = new TileData("OBSERVATION HEAD", 1, 3, string.Empty);
+            var obsHeadBtn = new TileData("OBSERVATION HEAD", 1, 3, "16Mpx");
             obsHeadBtn.ClickMethod += (sender, args) =>
             {
                 defaultHead.Label.Visible = cam1Head.Label.Visible = cam2Head.Label.Visible = true;
                 var label = sender as Label;
-                if (label != null) obsHeadBtn.Label.Text = label.Text;
+                if (label != null) obsHeadBtn.Label.Text = "nex-5";
             };
 
             EventHandler fnc = (sender, args) =>
