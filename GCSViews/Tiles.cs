@@ -101,7 +101,7 @@ namespace MissionPlanner.GCSViews
                         FlightPlanner.instance.PolygonGridMode = true;
                     }
                 }),
-                new TileButton("ADD START\nPOINT", 0, 2,
+                new TileButton("ADD START\nCOMMAND", 0, 2,
                     (sender, args) => FlightPlanner.instance.takeoffToolStripMenuItem_Click(null, null)),
                 new TileButton("CLEAR", 0, 3, (sender, args) =>
                 {
@@ -109,7 +109,7 @@ namespace MissionPlanner.GCSViews
                     FlightPlanner.instance.clearPolygonToolStripMenuItem_Click(null, null);
                 }),
                 new TileData("DISTANCE", 0, 4, "km"),
-                new TileData("RADIO SIGNAL", 0, 5, "km2"),
+                new TileData("RADIO SIGNAL", 0, 5, "%"),
                 new TileButton("WRITE WAYPOINTS", 3, 7, (sender, args) => FlightPlanner.instance.BUT_write_Click(sender, args)), 
             
                 new TileButton("FLIGHT\nPLANNING", 1, 0, (sender, e) => MainV2.View.ShowScreen("FlightPlanner"),

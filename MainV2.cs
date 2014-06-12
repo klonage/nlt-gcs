@@ -334,7 +334,7 @@ namespace MissionPlanner
 
             if (config.ContainsKey("language") && !string.IsNullOrEmpty((string)config["language"]))
             {
-                changelanguage(CultureInfoEx.GetCultureInfo((string)config["language"]));
+               // changelanguage(CultureInfoEx.GetCultureInfo((string)config["language"]));
             }
 
             this.Text = splash.Text;
@@ -379,7 +379,7 @@ namespace MissionPlanner
                 FlightPlanner = new GCSViews.FlightPlanner();
                 //Configuration = new GCSViews.ConfigurationView.Setup();
                 log.Info("Create SIM");
-                Simulation = new GCSViews.Simulation();
+             //   Simulation = new GCSViews.Simulation();
                 //Firmware = new GCSViews.Firmware();
                 //Terminal = new GCSViews.Terminal();
 
@@ -443,8 +443,8 @@ namespace MissionPlanner
                 if (config["CMB_ratesensors"] != null)
                     MainV2.comPort.MAV.cs.ratesensors = byte.Parse(config["CMB_ratesensors"].ToString());
 
-                if (config["speechenable"] != null)
-                    MainV2.speechEnable = bool.Parse(config["speechenable"].ToString());
+              //  if (config["speechenable"] != null)
+                  //  MainV2.speechEnable = bool.Parse(config["speechenable"].ToString());
 
                 if (MainV2.config["analyticsoptout"] != null)
                     MissionPlanner.Utilities.Tracking.OptOut = bool.Parse(config["analyticsoptout"].ToString());
@@ -1671,11 +1671,11 @@ namespace MissionPlanner
 
             MyView.AddScreen(new MainSwitcher.Screen("FlightData", FlightData, true));
             MyView.AddScreen(new MainSwitcher.Screen("FlightPlanner", FlightPlanner, true));
-            MyView.AddScreen(new MainSwitcher.Screen("HWConfig", new GCSViews.InitialSetup(), false));
-            MyView.AddScreen(new MainSwitcher.Screen("SWConfig", new GCSViews.SoftwareConfig(), false));
-            MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
-            MyView.AddScreen(new MainSwitcher.Screen("Terminal", new GCSViews.Terminal(), false));
-            MyView.AddScreen(new MainSwitcher.Screen("Help", new GCSViews.Help(), false));
+           // MyView.AddScreen(new MainSwitcher.Screen("HWConfig", new GCSViews.InitialSetup(), false));
+           // MyView.AddScreen(new MainSwitcher.Screen("SWConfig", new GCSViews.SoftwareConfig(), false));
+           // MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
+           // MyView.AddScreen(new MainSwitcher.Screen("Terminal", new GCSViews.Terminal(), false));
+          //  MyView.AddScreen(new MainSwitcher.Screen("Help", new GCSViews.Help(), false));
 
             // init button depressed - ensures correct action
             //int fixme;
@@ -1842,14 +1842,7 @@ namespace MissionPlanner
 
         private void checkupdate(object stuff)
         {
-            try
-            {
-                MissionPlanner.Utilities.Update.CheckForUpdate();
-            }
-            catch (Exception ex)
-            {
-                log.Error("Update check failed", ex);
-            }
+          
         }
 
         private void TOOL_APMFirmware_SelectedIndexChanged(object sender, EventArgs e)
@@ -1868,177 +1861,28 @@ namespace MissionPlanner
 
         private void MenuHelp_Click(object sender, EventArgs e)
         {
-            MyView.ShowScreen("Help");
+            //MyView.ShowScreen("Help");
         }
 
-
-
-        /// <summary>
-        /// keyboard shortcuts override
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="keyData"></param>
-        /// <returns></returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.F12)
-            {
-                MenuConnect_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F2)
-            {
-                MenuFlightData_Click(null, null);
-                return true;
-            }
-            if (keyData == Keys.F3)
-            {
-                MenuFlightPlanner_Click(null, null);
-                return true;
-            }
-            if (keyData == Keys.F4)
-            {
-                MenuTuning_Click(null, null);
-                return true;
-            }
-
-            if (keyData == Keys.F5)
-            {
-                comPort.getParamList();
-                MyView.ShowScreen(MyView.current.Name);
-                return true;
-            }
-
-            if (keyData == (Keys.Control | Keys.F)) // temp
-            {
-                Form frm = new temp();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
-            /*if (keyData == (Keys.Control | Keys.S)) // screenshot
-            {
-                ScreenShot();
-                return true;
-            }*/
-            if (keyData == (Keys.Control | Keys.G)) // nmea out
-            {
-                Form frm = new SerialOutputNMEA();
-                ThemeManager.ApplyThemeTo(frm);
-                frm.Show();
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.L)) // limits
-            {
-                Form temp = new Form();
-                Control frm = new GCSViews.ConfigurationView.ConfigAP_Limits();
-                temp.Controls.Add(frm);
-                temp.Size = frm.Size;
-                frm.Dock = DockStyle.Fill;
-                ThemeManager.ApplyThemeTo(temp);
-                temp.Show();
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.W)) // test ac config
-            {
-                Wizard.Wizard cfg = new Wizard.Wizard();
-
-                cfg.ShowDialog(this);
-
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.Z)) // test ac config
-            {
-                MissionPlanner.GenOTP otp = new MissionPlanner.GenOTP();
-
-                otp.ShowDialog(this);
-
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.T)) // for override connect
-            {
-                try
-                {
-                    MainV2.comPort.Open(false);
-                }
-                catch (Exception ex) { CustomMessageBox.Show(ex.ToString()); }
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.Y)) // for ryan beall
-            {
-                // write
-                try
-                {
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.PREFLIGHT_STORAGE, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                }
-                catch { CustomMessageBox.Show("Invalid command"); return true; }
-                //read
-                ///////MainV2.comPort.doCommand(MAVLink09.MAV_CMD.PREFLIGHT_STORAGE, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-                CustomMessageBox.Show("Done MAV_ACTION_STORAGE_WRITE");
-                return true;
-            }
-            if (keyData == (Keys.Control | Keys.J))
-            {
-                /*
-                var test = MainV2.comPort.GetLogList();
-
-                foreach (var item in test)
-                {
-                    var ms = comPort.GetLog(item.id);
-
-                    using (BinaryWriter bw = new BinaryWriter(File.OpenWrite("test" + item.id + ".bin")))
-                    {
-                        bw.Write(ms.ToArray());
-                    }
-
-                    var temp1 = Log.BinaryLog.ReadLog("test" + item.id + ".bin");
-
-                    File.WriteAllLines("test" + item.id + ".log", temp1);
-                }*/
-                return true;
-            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         public void changelanguage(CultureInfo ci)
-        {
-            if (ci != null && !Thread.CurrentThread.CurrentUICulture.Equals(ci))
-            {
-                Thread.CurrentThread.CurrentUICulture = ci;
-                config["language"] = ci.Name;
-                //System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-
-                HashSet<Control> views = new HashSet<Control> { this, FlightData, FlightPlanner, Simulation };
-
-                foreach (Control view in MyView.Controls)
-                    views.Add(view);
-
-                foreach (Control view in views)
-                {
-                    if (view != null)
-                    {
-                        ComponentResourceManager rm = new ComponentResourceManager(view.GetType());
-                        foreach (Control ctrl in view.Controls)
-                        {
-                            rm.ApplyResource(ctrl);
-                        }
-                        rm.ApplyResources(view, "$this");
-                    }
-                }
-            }
+        { 
         }
 
         private void MainV2_FormClosing(object sender, FormClosingEventArgs e)
         {
             log.Info("MainV2_FormClosing");
 
-            config["MainHeight"] = this.Height;
-            config["MainWidth"] = this.Width;
-            config["MainMaximised"] = this.WindowState.ToString();
+          //  config["MainHeight"] = this.Height;
+          //  config["MainWidth"] = this.Width;
+           // config["MainMaximised"] = this.WindowState.ToString();
 
-            config["MainLocX"] = this.Location.X.ToString();
-            config["MainLocY"] = this.Location.Y.ToString();
+           // config["MainLocX"] = this.Location.X.ToString();
+           // config["MainLocY"] = this.Location.Y.ToString();
 
             try
             {
@@ -2233,7 +2077,7 @@ namespace MissionPlanner
 
         private void CMB_serialport_Enter(object sender, EventArgs e)
         {
-            int whywasthishere;
+            //int whywasthishere;
            // CMB_serialport_Click(sender, e);
         }
 

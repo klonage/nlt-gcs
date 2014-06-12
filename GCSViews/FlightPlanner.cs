@@ -4647,10 +4647,10 @@ namespace MissionPlanner.GCSViews
         public void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // altitude
-            string alt = "10";
+            string alt = "75";
 
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Altitude", "Please enter your takeoff altitude", ref alt))
-                return;
+           // if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Altitude", "Please enter your takeoff altitude", ref alt))
+              //  return;
 
             int alti = -1;
 
@@ -4665,10 +4665,10 @@ namespace MissionPlanner.GCSViews
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
             {
-                string top = "15";
+                string top = "20";
 
-                if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Takeoff Pitch", "Please enter your takeoff pitch", ref top))
-                    return;
+              //  if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Takeoff Pitch", "Please enter your takeoff pitch", ref top))
+                //    return;
 
                 if (!int.TryParse(top, out topi))
                 {
@@ -4688,6 +4688,7 @@ namespace MissionPlanner.GCSViews
             ChangeColumnHeader(MAVLink.MAV_CMD.TAKEOFF.ToString());
 
             writeKML();
+            MessageBox.Show("Start Command added!");
         }
 
         private void loadWPFileToolStripMenuItem_Click(object sender, EventArgs e)

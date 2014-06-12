@@ -1309,7 +1309,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMarkerGoogle m = new GMarkerGoogle(point,GMarkerGoogleType.Magenta);
+                GMarkerGoogle m = new GMarkerGoogle(point,GMarkerGoogleType.pink);
                 m.ToolTipMode = MarkerTooltipMode.Always;
                 m.ToolTipText = tag;
                 m.Tag = tag;
@@ -2928,6 +2928,7 @@ print 'Roll complete'
             try
             {
                 MainV2.comPort.setDigicamControl(true);
+               // MainV2.comPort.setParam()
             }
             catch { CustomMessageBox.Show("Error sending command", "Error"); }
         }
