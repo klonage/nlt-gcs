@@ -144,6 +144,7 @@ namespace MissionPlanner.GCSViews
 
                 {
                     double result;
+                    TXT_homealt.Text = Tiles.AltitudeVal.ToString();
                     bool pass = double.TryParse(TXT_homealt.Text, out result);
 
                     if (pass == false)

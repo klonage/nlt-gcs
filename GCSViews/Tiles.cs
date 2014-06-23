@@ -9,18 +9,34 @@ using IronPython.Runtime.Operations;
 
 namespace MissionPlanner.GCSViews
 {
-    internal class Tiles
+    public class Tiles
     {
+        static TileData altInfo = null;
+        static TileData angleInfo = null;
+
+        private static int altMin = 75;
+        private static int altMax = 1000;
+
+        public static int AngleVal { get { return Convert.ToInt32(angleInfo.Value); } } // duup so ugly!
+        public static int AltitudeVal{ get { return Convert.ToInt32(altInfo.Value); } } // duup so ugly!
+
+        public static void ChangeAlt(int v)
+        {
+            int val = Convert.ToInt32(altInfo.Value) + v;
+            if (val < altMin) val = altMin;
+            else if (val > altMax) val = altMax;
+            FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = val.ToString();
+        }
+        
         public static void SetTiles(Panel p, bool isFlightMode)
         {
-            TileData altInfo = null;
-            TileData angleInfo = null;
+            
             var angleBtnUp = new TileButton("+5", 2, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) + 5).ToString());
-            var angleBtnDown = new TileButton("-5", 3, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value) - 5).ToString());
+            var angleBtnDown = new TileButton("-5", 3, 4, (sender, args) => angleInfo.Value = (Convert.ToInt32(angleInfo.Value)- 5).ToString());
             TileButton angleBtnOk = null;
             angleBtnOk = new TileButton("OK", 4, 4, (sender, args) => angleBtnUp.Visible = angleBtnDown.Visible = angleBtnOk.Visible = false);
-            var altBtnUp = new TileButton("+25", 2, 5, (sender, args) => FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = (Convert.ToInt32(altInfo.Value) + 25).ToString());
-            var altBtnDown = new TileButton("-25", 3, 5, (sender, args) => FlightPlanner.instance.TXT_DefaultAlt.Text = altInfo.Value = (Convert.ToInt32(altInfo.Value) - 25).ToString());
+            var altBtnUp = new TileButton("+25", 2, 5, (sender, args) => ChangeAlt(25));
+            var altBtnDown = new TileButton("-25", 3, 5, (sender, args) => ChangeAlt(-25));
             TileButton altBtnOk = null;
             altBtnOk = new TileButton("OK", 4, 5, (sender, args) => altBtnDown.Visible = altBtnUp.Visible = altBtnOk.Visible = false);
 
@@ -78,7 +94,11 @@ namespace MissionPlanner.GCSViews
             cam1Head.ClickMethod += fnc;
             cam2Head.ClickMethod += fnc;
 
-
+            angleInfo = new TileData("ANGLE", 1, 4, "deg", (sender, args) =>
+            {
+                var x = !angleBtnUp.Visible;
+                angleBtnUp.Visible = angleBtnDown.Visible = angleBtnOk.Visible = x;
+            });
 
             const string polygonmodestring = "POLYGON\nMODE";
             var tilesFlightPlanning = new List<TileInfo>(new TileInfo[]
@@ -134,15 +154,11 @@ namespace MissionPlanner.GCSViews
                 }),
                 new TileButton("ADD LANDING POINT", 1, 2,
                     (sender, args) => FlightPlanner.instance.landToolStripMenuItem_Click(null, null)),
-
-                new TileData("ANGLE", 1, 4, "deg", (sender, args) =>
-                {
-                    var x = !angleBtnUp.Visible;
-                    angleBtnUp.Visible = angleBtnDown.Visible = angleBtnOk.Visible = x;
-                }),
+                    angleInfo
+                ,
                altInfo
             });
-
+            
 
             var tilesArray = (isFlightMode) ? tilesFlightMode : tilesFlightPlanning;
 
