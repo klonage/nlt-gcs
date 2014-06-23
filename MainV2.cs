@@ -389,7 +389,8 @@ namespace MissionPlanner
 
                 FlightData.Width = MyView.Width;
                 FlightPlanner.Width = MyView.Width;
-                Simulation.Width = MyView.Width;
+                if (Simulation != null)
+                    Simulation.Width = MyView.Width;
             }
             catch (ArgumentException e)
             {
